@@ -1,0 +1,76 @@
+.newPost {
+    padding-top: 50px;
+    font-family: "Lora", serif;
+  }
+  
+.newPostImg {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 70vw;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+  
+.newPostForm {
+  position: relative;
+}
+  
+.newPostFormGroup {
+  margin-left: 50px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+}
+  
+.newPostIcon {
+  width: 25px;
+  height: 25px;
+  font-size: 20px;
+  border: 1px solid;
+  border-radius: 50%;
+  color: rgb(129, 125, 125);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.newPostInput {
+  font-size: 30px;
+  border: none;
+  padding: 20px;
+  width: 70vw;
+}
+
+.newPostInput::placeholder {
+  color: rgb(189, 185, 185);
+  font-weight: 400;
+}
+
+.newPostInput:focus {
+  outline-style: none;
+}
+
+.newPostText {
+  width: 70vw;
+  height: 100vh;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.newPostSubmit {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  color: white;
+  background-color: teal;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
