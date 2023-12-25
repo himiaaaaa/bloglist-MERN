@@ -9,7 +9,7 @@
         rgba(255, 255, 255, 0.8),
         rgba(255, 255, 255, 0.8)
       ),
-    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+      url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
     border-radius: 50px;
     background-size: cover;
   }
@@ -58,5 +58,6 @@
     border: none;
     color: white;
     border-radius: 10px;
+    text-align: center;
   }
 

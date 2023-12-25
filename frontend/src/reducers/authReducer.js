@@ -67,15 +67,24 @@ import authService from '../services/auth'
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: [],
+  initialState: null,
   reducers: {
     registerUser(state, action) {
       return action.payload
+    },
+    initUser(state, action){
+      return action.payload
+    },
+    loginUser(state, action){
+      return action.payload
+    },
+    logoutUser(){
+      return null
     }
   }
 })
 
-export const { registerUser } = authSlice.actions
+export const { registerUser, initUser, loginUser, logoutUser } = authSlice.actions
 
 export const register = (username, email, password) => {
   return async (dispatch) => {
@@ -91,6 +100,43 @@ export const register = (username, email, password) => {
 
     dispatch(registerUser(user))
 
+  }
+}
+
+export const initializeUser = () => {
+  return async dispatch => {
+
+    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+
+    if (loggedUserJSON) {
+
+      const user = JSON.parse(loggedUserJSON)
+      dispatch(initUser(user))
+      blogService.setToken(user.token)
+
+    }
+  }
+}
+
+export const login = (username, password) => {
+  return async dispatch => {
+    const user = await authService.login({
+      username,
+      password,
+    })
+
+    window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
+
+    blogService.setToken(user.token)
+
+    dispatch(loginUser(user))
+  }
+}
+
+export const logout = () => {
+  return async dispatch => {
+    window.localStorage.removeItem('loggedBloglistUser')
+    dispatch(logoutUser())
   }
 }
 

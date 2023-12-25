@@ -1,8 +1,18 @@
 import { Link } from 'react-router-dom'
 import './topbar.css'
+import { logout } from '../../reducers/authReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Topbar() {
-  const user = true
+  const authUser = useSelector(state => state.auth)
+  console.log('auth', authUser)
+  const dispatch = useDispatch()
+
+  const handleLogout = async (event) => {
+    event.preventDefault()
+    dispatch(logout())
+  }
+
   return (
     <div className="top">
       <div className="topLeft">
@@ -20,16 +30,22 @@ export default function Topbar() {
           </li>
           <li className="topListItem">ABOUT</li>
           <li className="topListItem">CONTACT</li>
-          <li className="topListItem">
-            <Link className="link" to="/write">
-              WRITE
-            </Link>
-          </li>
-          {user && <li className="topListItem">LOGOUT</li>}
+          {authUser &&
+            <>
+              <li className="topListItem">
+                <Link className="link" to="/write">
+                       WRITE
+                </Link>
+              </li>
+              <li className="topListItem" onClick={handleLogout}>
+                  LOGOUT
+              </li>
+            </>
+          }
         </ul>
       </div>
       <div className="topRight">
-        {user ? (
+        {authUser ? (
           <Link className="link" to="/settings">
             <img
               className="topImg"

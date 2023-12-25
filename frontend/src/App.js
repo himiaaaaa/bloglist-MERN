@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 //import Notification from './components/Notification'
 //import AddBlogForm from './components/AddBlogForm'
 //import BlogList from './components/BlogList'
 //import LoginForm from './components/LoginForm'
 import { initializeBlogs } from './reducers/blogReducer'
-//import { initializeUser } from './reducers/authReducer'
+import { initializeUser } from './reducers/authReducer'
 //import { initializeAllUsers } from './reducers/userReducer'
 //import { initializeAllComments } from './reducers/commentReducer'
 //import UserDisplay from './components/UserDisplay'
@@ -25,14 +25,14 @@ import { initializeCategories } from './reducers/categoryReducer'
 
 
 const App = () => {
-  //const authUsers = useSelector( state => state.authUser )
-  const authUser = false
+  const authUser = useSelector( state => state.auth )
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(initializeBlogs())
     dispatch(initializeCategories())
+    dispatch(initializeUser())
   }, [dispatch])
   /*
   const dispatch = useDispatch()

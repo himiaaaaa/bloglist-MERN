@@ -2,8 +2,10 @@ import { useDispatch } from 'react-redux'
 import './register.css'
 import { useState } from 'react'
 import { register } from '../../reducers/authReducer'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [username, setUsername] = useState('')
@@ -41,7 +43,13 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="registerButton">Register</button>
-        <button className="registerLoginButton">Login</button>
+        <button
+          className="registerLoginButton"
+          type="button"
+          onClick={() => navigate('/login')}
+        >
+            Login
+        </button>
       </form>
     </div>
   )
