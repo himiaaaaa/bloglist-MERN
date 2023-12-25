@@ -22,14 +22,16 @@ export default store */
 import { configureStore } from '@reduxjs/toolkit'
 import blogReducer from './reducers/blogReducer'
 import categoryReducer from './reducers/categoryReducer'
+import authReducer from './reducers/authReducer'
 
 const store = configureStore({
   reducer: {
     blogs: blogReducer,
-    categories: categoryReducer
+    categories: categoryReducer,
+    auth: authReducer
   }
 })
 
-store.subscribe(() => {console.log(store.getState())})
+store.subscribe(() => {console.log('store getstate', store.getState())})
 
 export default store

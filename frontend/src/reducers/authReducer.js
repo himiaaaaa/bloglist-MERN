@@ -60,3 +60,39 @@ export const logout = () => {
 }
 
 export default authSlice.reducer */
+
+import { createSlice } from '@reduxjs/toolkit'
+import blogService from '../services/blogs'
+import authService from '../services/auth'
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: [],
+  reducers: {
+    registerUser(state, action) {
+      return action.payload
+    }
+  }
+})
+
+export const { registerUser } = authSlice.actions
+
+export const register = (username, email, password) => {
+  return async (dispatch) => {
+
+    const user = await authService.register({
+      username,
+      email,
+      password,
+    })
+
+    window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
+    blogService.setToken(user.token)
+
+    dispatch(registerUser(user))
+
+  }
+}
+
+export default authSlice.reducer
+

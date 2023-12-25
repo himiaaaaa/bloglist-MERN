@@ -54,9 +54,14 @@ export default { getAll, create, setToken, update, remove, getComment, postComme
 import axios from 'axios'
 const baseUrl = '/api/blogs'
 
+const setToken = (newToken) => {
+  let token = `Bearer ${newToken}`
+  return token
+}
+
 const getAll = async() => {
   const response = await axios.get(baseUrl)
   return response.data
 }
 
-export default { getAll }
+export default { setToken, getAll }
