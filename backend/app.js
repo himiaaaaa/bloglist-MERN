@@ -27,20 +27,21 @@ mongoose
     logger.error("error connecting to MongoDB:", error.message);
   });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
-});
-
-const upload = multer({ storage: storage });
-
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded");
-});
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "../frontend/public/upload");
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + file.originalname);
+    },
+  });
+  
+  const upload = multer({ storage });
+  
+  app.post("/api/upload", upload.single("file"), function (req, res) {
+    const file = req.file;
+    res.status(200).json(file.filename);
+  });
 
 app.use(cors());
 app.use(express.static("build"));

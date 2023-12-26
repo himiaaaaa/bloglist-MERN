@@ -2,14 +2,16 @@ import { Link } from 'react-router-dom'
 import './singlePost.css'
 
 export default function SinglePost({ blog }) {
+  const isPhotoUrl = blog.photo.startsWith('http')
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          className="singlePostImg"
-          src={blog.photo}
-          alt=""
-        />
+        {isPhotoUrl ? (
+          <img className="singlePostImg" src={blog.photo} alt="" />
+        ) : (
+          <img className="singlePostImg" src={`../upload/${blog.photo}`} alt="" />
+        )}
         <h1 className="singlePostTitle">
           {blog.title}
           <div className="singlePostEdit">

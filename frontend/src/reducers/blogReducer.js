@@ -72,16 +72,26 @@ const blogSlice = createSlice({
   reducers: {
     setBlog(state, action){
       return action.payload
-    }
+    },
+    appendBlog(state, action){
+      state.push(action.payload)
+    },
   }
 })
 
-export const { setBlog } = blogSlice.actions
+export const { setBlog, appendBlog } = blogSlice.actions
 
 export const initializeBlogs = () => {
   return async dispatch => {
     const blogs = await blogService.getAll()
     dispatch(setBlog(blogs))
+  }
+}
+
+export const createBlog = content => {
+  return async dispatch => {
+    const newBlog = await blogService.create(content)
+    dispatch(appendBlog(newBlog))
   }
 }
 

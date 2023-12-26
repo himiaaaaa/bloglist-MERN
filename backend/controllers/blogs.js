@@ -78,7 +78,7 @@ blogsRouter.post("/", async (request, response) => {
     photo: body.photo,
     likes: body.likes ?? 0,
     user: user._id,
-    categories: body.categories
+    categories: body.categories ?? ''
   });
    //comment: comment._id ?? ''
   if (body.title === undefined) {

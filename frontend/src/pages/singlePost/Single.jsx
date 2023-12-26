@@ -16,6 +16,10 @@ export default function Single() {
 
   const blog = blogs.find(b => b.id === String(id))
 
+  if(!blog){
+    return null
+  }
+
   return (
     <div className="single">
       <SinglePost blog={blog}/>

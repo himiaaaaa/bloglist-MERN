@@ -33,7 +33,7 @@ export default function Topbar() {
           {authUser &&
             <>
               <li className="topListItem">
-                <Link className="link" to="/write">
+                <Link className="link" to="/newPost">
                        WRITE
                 </Link>
               </li>

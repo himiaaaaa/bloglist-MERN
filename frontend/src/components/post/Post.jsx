@@ -2,13 +2,16 @@ import { Link } from 'react-router-dom'
 import './post.css'
 
 export default function Post({ blog }) {
+
+  const isPhotoUrl = blog && blog.photo && blog.photo.startsWith('http')
+
   return (
     <div className="post">
-      <img
-        className="postImg"
-        src={blog.photo}
-        alt=""
-      />
+      {isPhotoUrl ? (
+        <img className="postImg" src={blog.photo} alt="" />
+      ) : (
+        <img className="postImg" src={`../upload/${blog.photo}`} alt="" />
+      )}
       <div className="postInfo">
         <div className="postCats">
           {blog.categories.map((cat) => (
