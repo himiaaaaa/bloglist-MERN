@@ -1,49 +1,91 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './login.css'
 import { login } from '../../reducers/authReducer'
 import { useNavigate } from 'react-router-dom'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 
 export default function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const notification = useSelector((state) => state.notifications)
 
-  const handleLogin = async(e) => {
-    e.preventDefault()
+  const initialValues = {
+    username: '',
+    password: '',
+  }
 
-    const username = e.target.username.value
-    const password = e.target.password.value
-    e.target.username.value = ''
-    e.target.password.value = ''
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required('This field is required!'),
+    password: Yup.string().required('This field is required!'),
+  })
+
+  const handleLogin = async (formValue) => {
+    const { username, password } = formValue
+
     dispatch(login(username, password))
   }
 
   return (
     <div className="login">
       <span className="loginTitle">Login</span>
-      <form className="loginForm" onSubmit={handleLogin}>
-        <label>Username</label>
-        <input
-          className="loginInput"
-          type="text"
-          placeholder="Enter your username..."
-          id="username"
-        />
-        <label>Password</label>
-        <input
-          className="loginInput"
-          type="password"
-          placeholder="Enter your password..."
-          id="password"
-        />
-        <button className="loginButton">Login</button>
-        <button
-          className="loginRegisterButton"
-          type="button"
-          onClick={() => navigate('/register')}
-        >
+      <Formik
+        onSubmit={handleLogin}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+      >
+        <Form className="loginForm">
+          <label htmlFor='username'>Username</label>
+          <Field
+            className="loginInput"
+            type="text"
+            placeholder="Enter your username..."
+            id="username"
+            name="username"
+          />
+          <ErrorMessage
+            name="username"
+            component="div"
+            className="alert alert-danger"
+          />
+
+          <label>Password</label>
+          <Field
+            className="loginInput"
+            type="password"
+            placeholder="Enter your password..."
+            id="password"
+            name="password"
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className="alert alert-danger"
+          />
+
+          <button className="loginButton" type="submit" >
+            <span>Login</span>
+          </button>
+
+          <button
+            className="loginRegisterButton"
+            type="button"
+            onClick={() => navigate('/register')}
+          >
             Register
-        </button>
-      </form>
+          </button>
+
+        </Form>
+      </Formik>
+      <div>
+        {notification && (
+          <div>
+            <div className="alert alert-danger" role="alert">
+              {notification}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

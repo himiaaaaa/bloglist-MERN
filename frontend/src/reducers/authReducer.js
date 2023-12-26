@@ -64,6 +64,7 @@ export default authSlice.reducer */
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
 import authService from '../services/auth'
+import { setNotification } from './notificationReducer'
 
 const authSlice = createSlice({
   name: 'auth',
@@ -89,16 +90,22 @@ export const { registerUser, initUser, loginUser, logoutUser } = authSlice.actio
 export const register = (username, email, password) => {
   return async (dispatch) => {
 
-    const user = await authService.register({
-      username,
-      email,
-      password,
-    })
+    try {
+      const user = await authService.register({
+        username,
+        email,
+        password,
+      })
 
-    window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
-    blogService.setToken(user.token)
+      window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
+      blogService.setToken(user.token)
 
-    dispatch(registerUser(user))
+      dispatch(registerUser(user))
+      dispatch(setNotification(`${user.username} successfully logged in`, 5))
+    } catch (error) {
+      console.error('Registration failed:', error)
+      dispatch(setNotification('Username or email already exists', 5))
+    }
 
   }
 }
@@ -120,16 +127,22 @@ export const initializeUser = () => {
 
 export const login = (username, password) => {
   return async dispatch => {
-    const user = await authService.login({
-      username,
-      password,
-    })
 
-    window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
+    try {
+      const user = await authService.login({
+        username,
+        password,
+      })
 
-    blogService.setToken(user.token)
+      window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
 
-    dispatch(loginUser(user))
+      blogService.setToken(user.token)
+
+      dispatch(loginUser(user))
+      dispatch(setNotification(`${user.username} successfully logged in`, 5))
+    } catch (exception) {
+      dispatch(setNotification('Wrong username or password', 5))
+    }
   }
 }
 

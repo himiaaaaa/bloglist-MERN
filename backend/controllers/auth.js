@@ -44,7 +44,7 @@ AuthRouter.post("/login", async (req, res) => {
     const user = await User.findOne({username});
 
     const passwordCorrect =
-      user === null ? false : bcrypt.compare(password, user.password);
+      user === null ? false : await bcrypt.compare(password, user.password);
 
     if (!user || !passwordCorrect) {
       return res.status(401).json({
