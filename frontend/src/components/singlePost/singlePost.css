@@ -62,3 +62,51 @@
     font-size: 30px;
     font-weight: 600;
   }
+
+  .singlePostEditVersion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .singlePostDescEdit {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+  }
+
+  .singlePostTitleEdit {
+    width: 60%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 28px;
+  }
+
+  .singlePostBtnEdit{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .singlePostBtnEdit > button{
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: "Lora", sans-serif;
+  }
+
+
+
