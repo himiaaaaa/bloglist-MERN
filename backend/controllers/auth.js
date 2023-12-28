@@ -54,7 +54,7 @@ AuthRouter.post("/login", async (req, res) => {
 
     const userForToken = {
       username: user.username,
-      id: user._id,
+      id: user.id,
     };
 
     const token = jwt.sign(userForToken, process.env.SECRET, {
@@ -63,7 +63,12 @@ AuthRouter.post("/login", async (req, res) => {
 
     res
       .status(200)
-      .send({ token, username: user.username });
+      .send({ token, 
+              username: user.username, 
+              profilePic: user.profilePic,
+              email: user.email,
+              id: user.id
+            });
 
   } catch (err){
       res.status(500).json(err);

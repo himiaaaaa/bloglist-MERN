@@ -1,21 +1,90 @@
 import './settings.css'
 import Sidebar from '../../components/sidebar/Sidebar'
+import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { updateUsers } from '../../reducers/userReducer'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../../reducers/authReducer'
+import { deleteUsers } from '../../reducers/userReducer'
+//import axios from 'axios'
 
 export default function Settings() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const authUser = useSelector(state => state.auth)
+
+  const [editedUsername, setEditedUsername] = useState(authUser.username)
+  const [editedEmail, setEditedEmail] = useState(authUser.email)
+  const [editedPassword, setEditedPassword] = useState('')
+  const [file, setFile] = useState(null)
+
+  const isPhotoUrl = authUser && authUser.profilePic && authUser.profilePic.startsWith('https')
+
+  /* const upload = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      console.log('formdata', formData)
+      const res = await axios.post('/api/upload', formData)
+      return res.data
+    } catch (err) {
+      console.log(err)
+    }
+  } */
+
+  const handleUpdate = async () => {
+
+    //const imgUrl = await upload()
+    //console.log('userimgurl', imgUrl)
+
+    const updatedUser = {
+      ...authUser,
+      id: authUser.id,
+      username: editedUsername,
+      email: editedEmail,
+      password: editedPassword,
+      //profilePic: file ? imgUrl : authUser.profilePic,
+    }
+
+    dispatch(updateUsers(updatedUser))
+
+    dispatch(logout())
+    navigate('/login')
+    window.location.reload()
+  }
+
+  const handleDelete = () => {
+    if (window.confirm(`Delete user ${authUser.username} permanently`)) {
+      const id = authUser.id
+      console.log('look', id)
+      dispatch(deleteUsers( id ))
+      dispatch(logout())
+      navigate('/login')
+    }
+  }
+
   return (
     <div className="settings">
       <div className="settingsWrapper">
         <div className="settingsTitle">
           <span className="settingsTitleUpdate">Update Your Account</span>
-          <span className="settingsTitleDelete">Delete Account</span>
+          <span className="settingsTitleDelete" onClick={handleDelete}>Delete Account</span>
         </div>
         <form className="settingsForm">
           <label>Profile Picture</label>
           <div className="settingsPP">
-            <img
-              src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            {file ? <img
+              src={URL.createObjectURL(file)}
               alt=""
             />
+              :
+              isPhotoUrl ? (
+                <img className="topImg" src={authUser.profilePic} alt="" />
+              ) : (
+                <img className="topImg" src={`../upload/${authUser.profilePic}`} alt="" />
+              )
+            }
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>{' '}
             </label>
@@ -24,15 +93,33 @@ export default function Settings() {
               type="file"
               style={{ display: 'none' }}
               className="settingsPPInput"
+              onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
           <label>Username</label>
-          <input type="text" placeholder="Safak" name="name" />
+          <input
+            type="text"
+            placeholder={authUser.username}
+            value={editedUsername}
+            onChange={(e) => setEditedUsername(e.target.value)}
+          />
           <label>Email</label>
-          <input type="email" placeholder="safak@gmail.com" name="email" />
+          <input
+            type="email"
+            placeholder={authUser.email}
+            value={editedEmail}
+            onChange={(e) => setEditedEmail(e.target.value)}
+          />
           <label>Password</label>
-          <input type="password" placeholder="Password" name="password" />
-          <button className="settingsSubmitButton" type="submit">
+          <input
+            type="password"
+            placeholder=""
+            onChange={(e) => setEditedPassword(e.target.value)}
+          />
+          <button
+            className="settingsSubmitButton"
+            onClick={handleUpdate}
+          >
             Update
           </button>
         </form>

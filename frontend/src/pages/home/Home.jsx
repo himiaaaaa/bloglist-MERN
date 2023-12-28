@@ -19,7 +19,7 @@ export default function Homepage() {
     ? blogs.filter((blog) => blog.categories.includes(category))
     :
     username
-      ? blogs.filter((blog) => blog.user.username === username)
+      ? blogs.filter((blog) => blog.user && blog.user.username === username)
       : blogs
 
   return (

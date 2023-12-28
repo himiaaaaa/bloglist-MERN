@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 //import LoginForm from './components/LoginForm'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUser } from './reducers/authReducer'
-//import { initializeAllUsers } from './reducers/userReducer'
+import { initializeAllUsers } from './reducers/userReducer'
 //import { initializeAllComments } from './reducers/commentReducer'
 //import UserDisplay from './components/UserDisplay'
 //import { Nav, Navbar } from 'react-bootstrap'
@@ -33,6 +33,7 @@ const App = () => {
     dispatch(initializeBlogs())
     dispatch(initializeCategories())
     dispatch(initializeUser())
+    dispatch(initializeAllUsers())
   }, [dispatch])
   /*
   const dispatch = useDispatch()
@@ -87,7 +88,7 @@ const App = () => {
         <Route path='/blogs' element={<Homepage />} />
         <Route path='/blogs/:id' element={<Single />} />
         <Route path='/newPost' element={authUser? <NewPost /> : <Login />} />
-        <Route path='/settings' element={authUser? <Settings /> : <Login />} />
+        <Route path='/users' element={authUser? <Settings /> : <Login />} />
         <Route path='/login' element={authUser? <Homepage /> : <Login />} />
         <Route path='/register' element={authUser? <Homepage /> : <Register />} />
       </Routes>

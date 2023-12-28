@@ -77,7 +77,7 @@ blogsRouter.post("/", async (request, response) => {
     desc: body.desc,
     photo: body.photo,
     likes: body.likes ?? 0,
-    user: user._id,
+    user: user.id,
     categories: body.categories ?? ''
   });
    //comment: comment._id ?? ''
@@ -129,7 +129,7 @@ blogsRouter.delete("/:id", async (request, response) => {
 blogsRouter.put("/:id", async (request, response) => {
   const { id } = request.params
   const body = request.body
-  const user = request.user 
+  const user = request.user
 
   if (!user) {
     return response.status(401).json({ error: "token missing or invalid" });

@@ -42,6 +42,16 @@ usersRouter.post("/", async (request, response) => {
 
 */
 
+//get all users
+usersRouter.get("/", async (req, res) => {
+  const users = await User.find({}).populate("blogs", {
+    title: 1,
+    desc: 1,
+    id: 1,
+  });
+  res.json(users);
+});
+
 //get user
 usersRouter.get("/:id", async (req, res) => {
   try {
@@ -55,7 +65,7 @@ usersRouter.get("/:id", async (req, res) => {
 
 //UPDATE
 usersRouter.put("/:id", async (req, res) => {
-  if (req.body.userId === req.params.id) {
+  if (req.body.id === req.params.id) {
 
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
@@ -84,7 +94,7 @@ usersRouter.put("/:id", async (req, res) => {
 
 //DELETE
 usersRouter.delete("/:id", async (req, res) => {
-  if (req.body.userId === req.params.id) {
+  if (req.body.id === req.params.id) {
     try {
 
       const user = await User.findById(req.params.id);

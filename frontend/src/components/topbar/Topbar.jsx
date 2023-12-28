@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export default function Topbar() {
   const authUser = useSelector(state => state.auth)
-  console.log('auth', authUser)
+
+  const isPhotoUrl = authUser && authUser.profilePic && authUser.profilePic.startsWith('https')
+
   const dispatch = useDispatch()
 
   const handleLogout = async (event) => {
@@ -46,12 +48,12 @@ export default function Topbar() {
       </div>
       <div className="topRight">
         {authUser ? (
-          <Link className="link" to="/settings">
-            <img
-              className="topImg"
-              src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-            />
+          <Link className="link" to="/users">
+            {isPhotoUrl ? (
+              <img className="topImg" src={authUser.profilePic} alt="" />
+            ) : (
+              <img className="topImg" src={`../upload/${authUser.profilePic}`} alt="" />
+            )}
           </Link>
         ) : (
           <ul className="topList">
