@@ -18,7 +18,6 @@ export default function NewPost() {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      console.log()
       const res = await axios.post('/api/upload', formData)
       return res.data
     } catch (err) {

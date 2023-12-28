@@ -6,7 +6,7 @@ import { updateUsers } from '../../reducers/userReducer'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../reducers/authReducer'
 import { deleteUsers } from '../../reducers/userReducer'
-//import axios from 'axios'
+import axios from 'axios'
 
 export default function Settings() {
   const dispatch = useDispatch()
@@ -19,24 +19,26 @@ export default function Settings() {
   const [editedPassword, setEditedPassword] = useState('')
   const [file, setFile] = useState(null)
 
-  const isPhotoUrl = authUser && authUser.profilePic && authUser.profilePic.startsWith('https')
-
-  /* const upload = async () => {
+  const upload = async () => {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      console.log('formdata', formData)
+
       const res = await axios.post('/api/upload', formData)
+      console.log("resdata", res.data)
       return res.data
+      
     } catch (err) {
       console.log(err)
     }
-  } */
+  } 
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
 
-    //const imgUrl = await upload()
-    //console.log('userimgurl', imgUrl)
+    e.preventDefault()
+
+    const imgUrl = await upload()
+    console.log('userimgurl', imgUrl)
 
     const updatedUser = {
       ...authUser,
@@ -44,14 +46,16 @@ export default function Settings() {
       username: editedUsername,
       email: editedEmail,
       password: editedPassword,
-      //profilePic: file ? imgUrl : authUser.profilePic,
+      profilePic: file ? imgUrl : ''
     }
 
+    console.log('file', file)
+    
     dispatch(updateUsers(updatedUser))
 
     dispatch(logout())
-    navigate('/login')
-    window.location.reload()
+    //navigate('/login')
+    //window.location.reload()
   }
 
   const handleDelete = () => {
@@ -75,15 +79,14 @@ export default function Settings() {
           <label>Profile Picture</label>
           <div className="settingsPP">
             {file ? <img
-              src={URL.createObjectURL(file)}
+              src={URL.createObjectURL(file)} //create a temporary URL for the uploaded image file
               alt=""
             />
-              :
-              isPhotoUrl ? (
-                <img className="topImg" src={authUser.profilePic} alt="" />
-              ) : (
-                <img className="topImg" src={`../upload/${authUser.profilePic}`} alt="" />
-              )
+            : 
+            <img
+              src={`../upload/${authUser.profilePic}`}
+              alt=""
+            />
             }
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>{' '}
