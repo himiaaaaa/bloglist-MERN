@@ -102,7 +102,7 @@ export default function Register() {
           />
 
           <button className="registerButton" type="submit">
-            <span>Register</span>
+            <span id="register-btn">Register</span>
           </button>
 
           <button

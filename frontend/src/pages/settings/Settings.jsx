@@ -25,13 +25,13 @@ export default function Settings() {
       formData.append('file', file)
 
       const res = await axios.post('/api/upload', formData)
-      console.log("resdata", res.data)
+      console.log('resdata', res.data)
       return res.data
-      
+
     } catch (err) {
       console.log(err)
     }
-  } 
+  }
 
   const handleUpdate = async (e) => {
 
@@ -50,7 +50,7 @@ export default function Settings() {
     }
 
     console.log('file', file)
-    
+
     dispatch(updateUsers(updatedUser))
 
     dispatch(logout())
@@ -82,11 +82,11 @@ export default function Settings() {
               src={URL.createObjectURL(file)} //create a temporary URL for the uploaded image file
               alt=""
             />
-            : 
-            <img
-              src={`../upload/${authUser.profilePic}`}
-              alt=""
-            />
+              :
+              <img
+                src={`../upload/${authUser.profilePic}`}
+                alt=""
+              />
             }
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>{' '}
