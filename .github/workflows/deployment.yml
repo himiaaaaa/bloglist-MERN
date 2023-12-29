@@ -17,8 +17,11 @@ jobs:
             with:
               node-version: '16'
 
-          - name: Install dependencies
+          - name: Install frontend dependencies
             run: cd frontend && npm install
+
+          - name: Install backend dependencies
+            run: cd backend && npm install
 
           - name: lint
             run: cd frontend && npm run eslint
