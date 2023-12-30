@@ -28,6 +28,9 @@ jobs:
 
           - name: Check build
             run: npm run build:ui
+          
+          - name: Check start
+            run: npm start
 
           - name: e2e tests
             uses: cypress-io/github-action@v5
@@ -35,4 +38,4 @@ jobs:
               working-directory: ./backend
               command: npm run test:e2e
               start: npm run start-prod
-              wait-on: http://localhost:3000
+              wait-on: http://localhost:3000, http://localhost:3003
