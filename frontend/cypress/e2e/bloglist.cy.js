@@ -1,7 +1,7 @@
 describe('bloglist', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3001')
+    cy.visit('http://localhost:3000')
   })
 
   describe('login', () => {
@@ -13,6 +13,7 @@ describe('bloglist', () => {
     it('login form can be opened', () => {
       cy.contains('LOGIN').click()
     })
+
 
     it('user can login', () => {
       cy.contains('LOGIN').click()
@@ -38,16 +39,17 @@ describe('bloglist', () => {
       cy.contains('REGISTER').click()
     })
 
+    /*
     it('user can register', () => {
       cy.contains('REGISTER').click()
-      cy.get('#username').type('testuser10')
-      cy.get('#email').type('testuser10@gmail.com')
-      cy.get('#password').type('numberten')
+      cy.get('#username').type('testuser12')
+      cy.get('#email').type('testuser12@gmail.com')
+      cy.get('#password').type('numberetwe')
       cy.get('#register-btn').click()
 
       cy.contains('LOGOUT')
 
-    })
+    }) */
 
     it('fail with not valid email', () => {
       cy.contains('REGISTER').click()

@@ -1,0 +1,45 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+    simple_deployment_pipeline:
+        runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: ./backend
+        steps:
+          - uses: actions/checkout@v3
+          - uses: actions/setup-node@v3
+            with:
+              node-version: '18'
+
+          - name: Install dependencies
+            run: npm install && cd ../frontend && npm install
+
+          - name: lint
+            run: npm run lint && cd ../frontend && npm run eslint
+
+          - name: Check build
+            run: npm run build:ui
+
+          - name: deploy
+            if: ${{ !contains(toJson(github.event.commits.*.message),'#skip') }}
+            uses: JorgeLNJunior/render-deploy@v1.4.1
+            with:
+              service_id: ${{ secrets.RENDER_SERVICE_ID }} # required
+              api_key: ${{ secrets.RENDER_API_KEY }} # required
+              clear_cache: false # Clear build cache. Optional
+              wait_deploy: false # Wait until the deploy status is successful. Warning! Free Render services can take +5 minutes to be fully deployed. Optional
+              github_deployment: false # Create a GitHub deployment. Optional
+              deployment_environment: 'production' # GitHub deployment enviroment name. Optional
+              github_token: false # Remove if github_deployment is false. Optional 
+          
+
+
