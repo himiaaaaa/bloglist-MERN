@@ -24,7 +24,7 @@ jobs:
             run: npm install && cd ../frontend && npm install
 
           - name: lint
-            run: npm run eslint && cd ../frontend && npm run eslint
+            run: npm run lint && cd ../frontend && npm run eslint
 
           - name: Check build
             run: npm run build:ui
