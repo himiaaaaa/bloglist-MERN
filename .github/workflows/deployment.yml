@@ -11,27 +11,27 @@ on:
 jobs:
     simple_deployment_pipeline:
         runs-on: ubuntu-20.04
+        defaults:
+          run:
+            working-directory: ./backend
         steps:
           - uses: actions/checkout@v4
           - uses: actions/setup-node@v3
             with:
               node-version: '16'
 
-          - name: Install frontend dependencies
-            run: cd frontend && npm install
-
-          - name: Install backend dependencies
-            run: cd backend && npm install
+          - name: Install dependencies
+            run: npm install && cd ../frontend && npm install
 
           - name: lint
-            run: cd frontend && npm run eslint
+            run: npm run eslint && cd ../frontend && npm run eslint
 
           - name: Check build
-            run: cd frontend && npm run build
+            run: npm run build:ui
 
           - name: e2e tests
             uses: cypress-io/github-action@v5
             with:
-              command: cd frontend && npm run test:e2e
-              start: cd frontend && npm run start
+              command: cd ../frontend && npm run test:e2e
+              start: cd ../frontend && npm start
               wait-on: http://localhost:3001
