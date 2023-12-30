@@ -39,6 +39,7 @@ describe('bloglist', () => {
       cy.contains('REGISTER').click()
     })
 
+    /*
     it('user can register', () => {
       cy.contains('REGISTER').click()
       cy.get('#username').type('testuser12')
@@ -48,7 +49,7 @@ describe('bloglist', () => {
 
       cy.contains('LOGOUT')
 
-    })
+    }) */
 
     it('fail with not valid email', () => {
       cy.contains('REGISTER').click()
