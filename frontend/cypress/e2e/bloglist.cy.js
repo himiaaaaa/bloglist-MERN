@@ -1,7 +1,7 @@
 describe('bloglist', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3001')
+    cy.visit('http://localhost:3000')
   })
 
   describe('login', () => {
