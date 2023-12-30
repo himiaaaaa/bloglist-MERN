@@ -10,7 +10,7 @@ on:
 
 jobs:
     simple_deployment_pipeline:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
         defaults:
           run:
             working-directory: ./backend
@@ -34,6 +34,6 @@ jobs:
             with:
               working-directory: ./frontend
               command: npm run test:e2e
-              start: npm run start:prod, npm start
+              start: npm start
               wait-on: http://localhost:3000
 
