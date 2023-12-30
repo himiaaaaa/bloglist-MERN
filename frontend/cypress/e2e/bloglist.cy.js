@@ -41,9 +41,9 @@ describe('bloglist', () => {
 
     it('user can register', () => {
       cy.contains('REGISTER').click()
-      cy.get('#username').type('testuser11')
-      cy.get('#email').type('testuser11@gmail.com')
-      cy.get('#password').type('numberele')
+      cy.get('#username').type('testuser12')
+      cy.get('#email').type('testuser12@gmail.com')
+      cy.get('#password').type('numberetwe')
       cy.get('#register-btn').click()
 
       cy.contains('LOGOUT')
