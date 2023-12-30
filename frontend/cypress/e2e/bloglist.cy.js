@@ -14,6 +14,7 @@ describe('bloglist', () => {
       cy.contains('LOGIN').click()
     })
 
+
     it('user can login', () => {
       cy.contains('LOGIN').click()
       cy.get('input:first').type('testusersix')
