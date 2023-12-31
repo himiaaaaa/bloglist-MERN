@@ -1,0 +1,33 @@
+services:
+  app:
+    image: bloglist-frontend-dev
+    build:
+      context: ./frontend 
+      dockerfile: dev.Dockerfile 
+    volumes:
+      - ./frontend:/usr/src/app  
+      - /usr/src/app/node_modules
+    container_name: bloglist-frontend-dev 
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+
+  server:
+    image: bloglist-backend-dev
+    build:
+      context: ./backend 
+      dockerfile: dev.Dockerfile 
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: bloglist-backend-dev 
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: bloglist-reverse-proxy
+    depends_on:
+      - app 
+      - server
