@@ -1,9 +1,9 @@
 services:
   app:
-    image: bloglist-frontend-dev
+    image: bloglist-frontend
     build:
       context: ./frontend 
-      dockerfile: dev.Dockerfile 
+      dockerfile: Dockerfile 
     volumes:
       - ./frontend:/usr/src/app  
       - /usr/src/app/node_modules
@@ -12,10 +12,10 @@ services:
       - REACT_APP_BACKEND_URL=http://localhost:8080
 
   server:
-    image: bloglist-backend-dev
+    image: bloglist-backend
     build:
       context: ./backend 
-      dockerfile: dev.Dockerfile 
+      dockerfile: Dockerfile 
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
