@@ -30,9 +30,9 @@ jobs:
             run: npm run build:ui
 
           - name: Run docker-compose
-            run: docker compose up --build
-            env: # Or as an environment variable
+            env:
               MONGODB_URI: ${{ secrets.MONGODB_URI }}
+            run: docker compose up --build
 
           - name: deploy
             if: ${{ !contains(toJson(github.event.commits.*.message),'#skip') }}
