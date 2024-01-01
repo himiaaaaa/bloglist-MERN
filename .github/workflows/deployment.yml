@@ -30,7 +30,7 @@ jobs:
             run: npm run build:ui
 
           - name: Run docker-compose
-            run: docker compose up  --build
+            run: docker compose up --build
 
           - name: deploy
             if: ${{ !contains(toJson(github.event.commits.*.message),'#skip') }}
