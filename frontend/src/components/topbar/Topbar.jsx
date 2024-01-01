@@ -27,7 +27,7 @@ export default function Topbar() {
         <ul className="topList">
           <li className="topListItem">
             <Link className="link" to="/">
-              HOME
+              HOME Test
             </Link>
           </li>
           <li className="topListItem">ABOUT</li>
