@@ -26,13 +26,13 @@ jobs:
           - name: lint
             run: npm run lint && cd ../frontend && npm run eslint
 
-          - name: Check build
-            run: npm run build:ui
-
           - name: Run docker-compose
+            uses: isbang/compose-action@v1.5.1
             env:
               MONGODB_URI: ${{ secrets.MONGODB_URI }}
-            run: docker compose up --build
+
+          - name: Check build
+            run: npm run build:ui
 
           - name: deploy
             if: ${{ !contains(toJson(github.event.commits.*.message),'#skip') }}
