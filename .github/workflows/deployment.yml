@@ -29,6 +29,9 @@ jobs:
           - name: Check build
             run: npm run build:ui
 
+          - name: Run docker-compose
+            run: docker compose up
+
           - name: deploy
             if: ${{ !contains(toJson(github.event.commits.*.message),'#skip') }}
             uses: JorgeLNJunior/render-deploy@v1.4.1
