@@ -51,7 +51,7 @@ export default function SinglePost({ blog }) {
         {isPhotoUrl ? (
           <img className="singlePostImg" src={blog.photo} alt="" />
         ) : (
-          <img className="singlePostImg" src={`../upload/${blog.photo}`} alt="" />
+          <img className="singlePostImg" src={`/images/${blog.photo}`} alt="" />
         )}
         <h1 className="singlePostTitle">
           {isEditing ?
@@ -65,9 +65,9 @@ export default function SinglePost({ blog }) {
             </>
             :
             <>
-              {blog.title}
+              {blog && blog.title}
 
-              {authUser && authUser.username && blog.user.username === authUser.username &&
+              {authUser && authUser.username && blog && blog.user && blog.user.username === authUser.username &&
               <div className="singlePostEdit">
                 <i className="singlePostIcon far fa-edit" onClick={handleEditBtn}></i>
                 <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>

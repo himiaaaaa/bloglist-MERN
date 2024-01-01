@@ -52,7 +52,7 @@ export default function Topbar() {
             {isPhotoUrl ? (
               <img className="topImg" src={authUser.profilePic} alt="" />
             ) : (
-              <img className="topImg" src={`../upload/${authUser.profilePic}`} alt="" />
+              <img className="topImg" src={`/images/${authUser.profilePic}`} alt="" />
             )}
           </Link>
         ) : (

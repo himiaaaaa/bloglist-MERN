@@ -84,7 +84,7 @@ export default function Settings() {
             />
               :
               <img
-                src={`../upload/${authUser.profilePic}`}
+                src={`/images/${authUser.profilePic}`}
                 alt=""
               />
             }
