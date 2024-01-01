@@ -67,7 +67,7 @@ export default function SinglePost({ blog }) {
             <>
               {blog.title}
 
-              {blog.user.username === authUser.username &&
+              {authUser && blog.user.username === authUser.username &&
               <div className="singlePostEdit">
                 <i className="singlePostIcon far fa-edit" onClick={handleEditBtn}></i>
                 <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
