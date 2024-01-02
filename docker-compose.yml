@@ -7,9 +7,10 @@ services:
     volumes:
       - ./frontend:/usr/src/app  
       - /usr/src/app/node_modules
+      - ./backend/public/Images:/usr/src/app/public/Images
     container_name: bloglist-frontend-dev 
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8080
+      - REACT_APP_BACKEND_URL=http://localhost:8080/api
 
   server:
     image: bloglist-backend
