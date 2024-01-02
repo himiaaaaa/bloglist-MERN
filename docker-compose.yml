@@ -19,7 +19,7 @@ services:
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
-      - ./backend/public/Images:/usr/src/app/public/Images
+      - ./backend/public/Images:/public/Images
     container_name: bloglist-backend-dev 
 
   nginx:
