@@ -7,7 +7,7 @@ import { setNotification } from '../../reducers/notificationReducer'
 import { useNavigate } from 'react-router-dom'
 
 export default function SinglePost({ blog }) {
-  const isPhotoUrl = blog.photo.startsWith('http')
+  const isPhotoUrl = blog.photo.startsWith('https')
   const authUser = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
