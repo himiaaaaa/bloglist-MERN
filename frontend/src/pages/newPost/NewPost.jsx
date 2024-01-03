@@ -10,6 +10,7 @@ export default function NewPost() {
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const [file, setFile] = useState(null)
+  console.log('upload file', file)
 
   const notification = useSelector((state) => state.notifications)
   const authUser = useSelector((state) => state.auth)
@@ -17,8 +18,12 @@ export default function NewPost() {
   const upload = async () => {
     try {
       const formData = new FormData()
+      const filename = Date.now() + file.name
+      formData.append('name', filename)
       formData.append('file', file)
       const res = await axios.post('/api/upload', formData)
+
+      console.log('resdata', res.data)
       return res.data
     } catch (err) {
       console.log(err)
@@ -32,7 +37,7 @@ export default function NewPost() {
     const title = e.target.title.value
     const desc = e.target.desc.value
     const imgUrl = await upload()
-    console.log('urlurlimgurl', imgUrl)
+    console.log('imgurl', imgUrl)
 
     e.target.title.value = ''
     e.target.desc.value = ''

@@ -46,7 +46,7 @@ export default function Settings() {
       username: editedUsername,
       email: editedEmail,
       password: editedPassword,
-      profilePic: file ? imgUrl : ''
+      profilePic: file ? imgUrl : authUser.profilePic
     }
 
     console.log('file', file)
@@ -84,7 +84,7 @@ export default function Settings() {
             />
               :
               <img
-                src={`../upload/${authUser.profilePic}`}
+                src={`/images/${authUser.profilePic}`}
                 alt=""
               />
             }

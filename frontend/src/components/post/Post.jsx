@@ -3,14 +3,14 @@ import './post.css'
 
 export default function Post({ blog }) {
 
-  const isPhotoUrl = blog && blog.photo && blog.photo.startsWith('http')
+  const isPhotoUrl = blog && blog.photo && blog.photo.startsWith('https')
 
   return (
     <div className="post">
       {isPhotoUrl ? (
         <img className="postImg" src={blog.photo} alt="" />
       ) : (
-        <img className="postImg" src={`../upload/${blog.photo}`} alt="" />
+        <img className="postImg" src={`images/${blog.photo}`} alt="" />
       )}
       <div className="postInfo">
         <div className="postCats">
@@ -38,3 +38,12 @@ export default function Post({ blog }) {
     </div>
   )
 }
+
+/*
+{isPhotoUrl ? (
+        <img className="postImg" src={blog.photo} alt="" />
+      ) : (
+        <img className="postImg" src={`/images/${blog.photo}`} alt="" />
+      )}
+
+*/
